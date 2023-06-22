@@ -3,20 +3,26 @@ import sys
 from math import isqrt
 
 def factorize(number):
-    div = 2
-    if number % div == 0:
-        print(f"{number}={number // div}*{div}")
+    if number % 2 == 0:
+        print(f"{number}={number // 2}*{2}")
         return True
-    div = 3
-    while div <= div * div:
+    if number % 3 == 0:
+        print(f"{number}={number // 3}*{3}")
+        return
+    if number % 5 == 0:
+        print(f"{number}={number // 5}*{5}")
+        return
+    if number % 7 == 0:
+        print(f"{number}={number // 7}*{7}")
+        return
+    for div in range(11, int(number ** 0.5), 2):
         if number % div == 0:
             print(f"{number}={number // div}*{div}")
-            return True
-        div += 2
+            return
     
     # If no factorization is found, number is prime
     print(f"{number}={number}*1")
-    return False
+    return
 
 if len(sys.argv) != 2:
     print("Usage: python factors.py <file>")
