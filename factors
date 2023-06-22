@@ -1,22 +1,20 @@
-#!/bin/python
+#!/bin/python3
 from sys import argv
-
-if len(argv) == 2:
-    file = open(argv[1], "r")
-    for l in file.readlines():
-        num = int(l.split("\n")[0])
-        div = 2
-        solved = 0
-        if num % 2 == 0:
-            print(f"{num}={num//2}*2")
-            solved = 1
-        else:
-            div = 3
-            while (div * div <= num):
-                if num % div == 0:
-                    print(f"{num}={num//div}*{div}")
-                    solved = 1
-                    break
-                div += 2
-        if not solved:
-            print(f"{num}={num}*1")
+nums = []
+try:
+    if len(argv) > 1:
+        with open(argv[1], "r") as file:
+            try:
+                nums = [int(l) for l in file.readlines()]
+            except:
+                pass
+except:
+    pass
+for num in nums:
+    inc = num % 2 + 1
+    a = b = 1
+    while a == 1 and b < num:
+        b += inc
+        if num % b == 0:
+            a = num // b
+    print(f"{num}={a}*{b}")
