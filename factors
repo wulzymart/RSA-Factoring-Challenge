@@ -33,15 +33,13 @@ if len(argv) != 2:
     exit(1)
 
 filename = argv[1]
-primes =[]
 try:
     with open(filename, 'r') as file:
         for line in file:
-            primes =[]
-            number = int(line.split('\n')[0])
-            try:
+            number = int(line)
+            if number < 100000000000000000:
                 factor.factorise(number)
-            except:
+            else:
                 factorise(number)
                 
 except FileNotFoundError:
