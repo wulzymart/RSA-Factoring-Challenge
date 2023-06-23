@@ -19,6 +19,7 @@ def factorize(number):
         if number % div == 0:
             print(f"{number}={number // div}*{div}")
             return
+
     
     # If no factorization is found, number is prime
     print(f"{number}={number}*1")
