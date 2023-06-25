@@ -1,22 +1,32 @@
 #!/usr/bin/python3
 import sys
-from math import isqrt
+from math import gcd
+
+def pollards_rho(n):
+    if n % 2 == 0:
+        return 2
+
+    x = 2
+    y = 2
+    d = 1
+
+    f = lambda x: (x**2 - 1) % n
+
+    while d == 1:
+        x = f(x)
+        y = f(f(y))
+        d = gcd(abs(x - y), n)
+
+    return d
 
 def factorize(number):
-    div = 2
-    if number % div == 0:
-        print(f"{number}={number // div}*{div}")
-        return True
-    div = 3
-    while div <= div * div:
-        if number % div == 0:
-            print(f"{number}={number // div}*{div}")
-            return True
-        div += 2
-    
-    # If no factorization is found, number is prime
-    print(f"{number}={number}*1")
-    return False
+    factor = pollards_rho(number)
+
+    if factor is None:
+        print(f"{number}={number}*{1}")
+    else:
+        co_factor = number // factor
+        print(f"{number}={factor if factor > co_factor else co_factor}*{factor if factor < co_factor else co_factor}")
 
 if len(sys.argv) != 2:
     print("Usage: python factors.py <file>")
