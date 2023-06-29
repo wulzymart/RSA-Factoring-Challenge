@@ -1,0 +1,40 @@
+#!/usr/bin/python3
+from math import gcd
+from sys import argv
+
+def trivial_factor(n):
+    if n % 2 == 0:
+        return 2
+    f = lambda x: (x ** 2 - 1) % n
+    x = 2
+    y = 2
+    d =  1
+    while d == 1:
+        x = f(x)
+        y = f(f(y))
+        d = gcd(abs(x - y), n)
+    if d == n:
+        return None
+    else:
+        return d
+
+
+if len(argv) != 2:
+    print("Usage: python factors.py <file>")
+    exit(1)
+
+filename = argv[1]
+try:
+    with open(filename, 'r') as file:
+        for line in file:
+            number = int(line)
+            factor = trivial_factor(number)
+            factor = factor if factor else 1
+            co_factor = number//factor
+            if co_factor < factor:
+                factor, co_factor = co_factor, factor
+            print(f"{number}={co_factor}*{factor}")
+                
+except FileNotFoundError:
+    print("Error opening file")
+    exit(1)
